@@ -1,5 +1,8 @@
 package com.example.shop.service.impl;
 
+
+import com.example.shop.convector.PersonConvector;
+import com.example.shop.dto.PersonDTO;
 import com.example.shop.model.Person;
 import com.example.shop.service.PersonService;
 import com.example.shop.storage.PersonStorage;
@@ -10,21 +13,21 @@ import java.util.List;
 @Service
 public class PersonServiceImpl implements PersonService {
     @Override
-    public Person createPerson(Person person) {
+    public PersonDTO createPerson(Person person) {
         PersonStorage.personStorageList.add(person);
-        return person;
+        return PersonConvector.convectorToDTO(person);
     }
 
     @Override
-    public Person updatePerson(Person person) {
-        Person newPerson = new Person();
+    public PersonDTO updatePerson(Person person) {
+        PersonDTO updatePerson = new PersonDTO();
         for (Person tmp : PersonStorage.personStorageList)
             if (tmp.getId().equals(person.getId())) {
                 tmp.setCartId(person.getCartId());
                 tmp.setName(person.getName());
-                newPerson = tmp;
+                updatePerson = PersonConvector.convectorToDTO(tmp);
             }
-        return newPerson;
+        return updatePerson;
     }
 
     @Override

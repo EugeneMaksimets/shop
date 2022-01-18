@@ -1,5 +1,6 @@
 package com.example.shop.controller;
 
+import com.example.shop.dto.PersonDTO;
 import com.example.shop.model.Person;
 import com.example.shop.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/person/create")
-    public Person createPerson(@RequestBody Person person) {
+    public PersonDTO createPerson(@RequestBody Person person) {
         return personService.createPerson(person);
     }
 
     @PutMapping("/person/update")
-    public Person updatePerson(@RequestBody Person person) {
+    public PersonDTO updatePerson(@RequestBody Person person) {
         return personService.updatePerson(person);
     }
 

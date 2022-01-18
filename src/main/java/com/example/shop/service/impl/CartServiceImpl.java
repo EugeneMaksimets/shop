@@ -7,11 +7,12 @@ import com.example.shop.storage.CartStorage;
 import com.example.shop.storage.ProductStorage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-
+    private List<Product> productList = new ArrayList<>();
 
     @Override
     public Cart createCart(Cart cart) {
@@ -26,8 +27,6 @@ public class CartServiceImpl implements CartService {
             if (tmp.getId().equals(cart.getId())) {
                 tmp.setPriceInCard(cart.getPriceInCard());
                 newCart = tmp;
-            } else {
-                System.err.println("Cannot find cart for update");
             }
         }
         return newCart;
@@ -44,8 +43,6 @@ public class CartServiceImpl implements CartService {
         for (Cart tmp : CartStorage.cartStorageList) {
             if (tmp.getId() == id) {
                 cart = tmp;
-            } else {
-                System.err.println("Cannot find cart id");
             }
         }
         return cart;
@@ -65,6 +62,8 @@ public class CartServiceImpl implements CartService {
                     if (idProduct == tmpProduct.getId()) {
                         double sum = tmp.getPriceInCard() + tmpProduct.getPrice();
                         tmp.setPriceInCard(sum);
+                        productList.add(tmpProduct);
+                        tmp.setProductList(productList);
                         cart = tmp;
                     }
                 }
@@ -82,6 +81,7 @@ public class CartServiceImpl implements CartService {
                     if (idProduct == tmpProduct.getId()) {
                         double sum = tmp.getPriceInCard() - tmpProduct.getPrice();
                         tmp.setPriceInCard(sum);
+                        productList.remove(tmpProduct);
                         cart = tmp;
                     }
                 }

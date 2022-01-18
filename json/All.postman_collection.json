@@ -110,9 +110,32 @@
 		},
 		{
 			"name": "getAllCart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cart/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cart",
+						"all"
+					]
+				}
 			},
 			"response": []
 		},
@@ -123,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 1\n}",
+					"raw": "{\n  \"id\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -151,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 1,\n  \"name\": \"test\",\n  \"cartId\": \"2\"\n}",
+					"raw": "{\n  \"id\": 1,\n  \"name\": \"test\",\n  \"cartId\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,7 +202,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"name\": \"test2\"\n}",
+					"raw": "{\n  \"id\": 2,\n  \"name\": \"test2\",\n  \"cartId\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -500,16 +523,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/cart/2/add/1",
+					"raw": "localhost:8080/cart/1/add/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"cart",
-						"2",
+						"1",
 						"add",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -530,16 +553,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/cart/2/add/2",
+					"raw": "localhost:8080/cart/1/add/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"cart",
-						"2",
+						"1",
 						"add",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -563,7 +586,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/cart/price/2",
+					"raw": "localhost:8080/cart/price/1",
 					"host": [
 						"localhost"
 					],
@@ -571,7 +594,7 @@
 					"path": [
 						"cart",
 						"price",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -592,14 +615,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/cart/2/delete/2",
+					"raw": "localhost:8080/cart/1/delete/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"cart",
-						"2",
+						"1",
 						"delete",
 						"2"
 					]
