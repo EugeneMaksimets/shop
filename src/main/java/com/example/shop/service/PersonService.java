@@ -14,5 +14,4 @@ public interface PersonService {
     Person getPersonById(int id);
 
     List<Person> getAllPerson();
-
 }

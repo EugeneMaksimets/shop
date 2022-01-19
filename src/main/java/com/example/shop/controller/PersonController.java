@@ -36,5 +36,4 @@ public class PersonController {
     public List<Person> getAll() {
         return personService.getAllPerson();
     }
-
 }

@@ -48,5 +48,4 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAll() {
         return ProductStorage.productStorageList;
     }
-
 }

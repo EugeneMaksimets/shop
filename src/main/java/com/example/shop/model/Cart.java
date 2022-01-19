@@ -14,3 +14,4 @@ public class Cart {
     private BigDecimal priceInCart;
     private List<Product> productList;
 }
+
