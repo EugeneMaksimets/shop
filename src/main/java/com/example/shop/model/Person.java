@@ -3,11 +3,13 @@ package com.example.shop.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Person {
     private Integer id;
     private String name;
-    private Integer cartId;
+    private List<Cart> cartList;
 
 }

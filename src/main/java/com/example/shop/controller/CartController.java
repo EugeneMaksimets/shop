@@ -5,6 +5,7 @@ import com.example.shop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -48,7 +49,7 @@ public class CartController {
     }
 
     @GetMapping("cart/price/{id}")
-    public Double getPriceFromCart(@PathVariable int id) {
-        return cartService.getPriceInCard(id);
+    public BigDecimal getPriceFromCart(@PathVariable int id) {
+        return cartService.getFullPrice(id);
     }
 }

@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.model.Cart;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartService {
@@ -19,5 +20,5 @@ public interface CartService {
 
     Cart deleteProductFromCart(int id, int idProduct);
 
-    Double getPriceInCard(int id);
+    BigDecimal getFullPrice(int id);
 }

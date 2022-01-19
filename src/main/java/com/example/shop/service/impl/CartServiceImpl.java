@@ -1,22 +1,33 @@
 package com.example.shop.service.impl;
 
 import com.example.shop.model.Cart;
+import com.example.shop.model.Person;
 import com.example.shop.model.Product;
 import com.example.shop.service.CartService;
 import com.example.shop.storage.CartStorage;
+import com.example.shop.storage.PersonStorage;
 import com.example.shop.storage.ProductStorage;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
     private List<Product> productList = new ArrayList<>();
+    private List<Cart> cartList = new ArrayList<>();
 
     @Override
     public Cart createCart(Cart cart) {
+        cart.setPriceInCart(BigDecimal.ZERO);
         CartStorage.cartStorageList.add(cart);
+        cartList.add(cart);
+        for (Person tmp : PersonStorage.personStorageList) {
+            if (tmp.getId().equals(cart.getPersonId())) {
+                tmp.setCartList(cartList);
+            }
+        }
         return cart;
     }
 
@@ -25,7 +36,8 @@ public class CartServiceImpl implements CartService {
         Cart newCart = new Cart();
         for (Cart tmp : CartStorage.cartStorageList) {
             if (tmp.getId().equals(cart.getId())) {
-                tmp.setPriceInCard(cart.getPriceInCard());
+                tmp.setPriceInCart(cart.getPriceInCart());
+                tmp.setPersonId(cart.getPersonId());
                 newCart = tmp;
             }
         }
@@ -60,8 +72,9 @@ public class CartServiceImpl implements CartService {
             if (id == tmp.getId()) {
                 for (Product tmpProduct : ProductStorage.productStorageList) {
                     if (idProduct == tmpProduct.getId()) {
-                        double sum = tmp.getPriceInCard() + tmpProduct.getPrice();
-                        tmp.setPriceInCard(sum);
+                        BigDecimal sum = getFullPrice(tmp.getId());
+                        sum = sum.add(tmpProduct.getPrice());
+                        tmp.setPriceInCart(sum);
                         productList.add(tmpProduct);
                         tmp.setProductList(productList);
                         cart = tmp;
@@ -79,9 +92,11 @@ public class CartServiceImpl implements CartService {
             if (id == tmp.getId()) {
                 for (Product tmpProduct : ProductStorage.productStorageList) {
                     if (idProduct == tmpProduct.getId()) {
-                        double sum = tmp.getPriceInCard() - tmpProduct.getPrice();
-                        tmp.setPriceInCard(sum);
+                        BigDecimal sum = getFullPrice(tmp.getId());
+                        sum = sum.subtract(tmpProduct.getPrice());
+                        tmp.setPriceInCart(sum);
                         productList.remove(tmpProduct);
+                        tmp.setProductList(productList);
                         cart = tmp;
                     }
                 }
@@ -91,11 +106,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Double getPriceInCard(int id) {
-        double sum = 0.0;
+    public BigDecimal getFullPrice(int id) {
+        BigDecimal sum = BigDecimal.ZERO;
         for (Cart tmp : CartStorage.cartStorageList) {
             if (tmp.getId() == id) {
-                sum = tmp.getPriceInCard();
+                sum = sum.add(tmp.getPriceInCart());
+                tmp.setPriceInCart(sum);
             }
         }
         return sum;
