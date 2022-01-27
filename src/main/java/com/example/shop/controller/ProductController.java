@@ -12,9 +12,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/product/create")
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
+    @PostMapping("/shop/{shopId}/product/create")
+    public Product createProduct(@RequestBody Product product, @PathVariable Long shopId) {
+        return productService.createProduct(product, shopId);
     }
 
     @PutMapping("/product/update")
@@ -22,13 +22,13 @@ public class ProductController {
         return productService.updateProduct(product);
     }
 
-    @DeleteMapping("/product/delete")
-    public void deleteProduct(@RequestBody Product product) {
-        productService.deleteProduct(product);
+    @DeleteMapping("/product/delete/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 
     @GetMapping("/product/{id}")
-    public Product getById(@PathVariable int id) {
+    public Product getById(@PathVariable Long id) {
         return productService.getById(id);
     }
 

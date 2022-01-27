@@ -1,51 +1,52 @@
 package com.example.shop.service.impl;
 
+import com.example.shop.converter.ProductConverter;
 import com.example.shop.model.Product;
+import com.example.shop.model.Shop;
+import com.example.shop.repository.ProductRepository;
+import com.example.shop.repository.ShopRepository;
 import com.example.shop.service.ProductService;
-import com.example.shop.storage.ProductStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Override
-    public Product createProduct(Product product) {
-        ProductStorage.productStorageList.add(product);
-        return product;
-    }
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     @Override
-    public Product updateProduct(Product product) {
-        Product newProduct = new Product();
-        for (Product tmp : ProductStorage.productStorageList) {
-            if (tmp.getId().equals(product.getId())) {
-                tmp.setPrice(product.getPrice());
-                tmp.setName(product.getName());
-                newProduct = tmp;
-            }
-        }
+    public Product createProduct(Product product, Long shopId) {
+        Shop shop = shopRepository.findById(shopId).get();
+        List<Product> productList = shop.getProductList();
+        productList.add(product);
+        Product newProduct = productRepository.save(product);
+        shopRepository.save(shop);
         return newProduct;
     }
 
     @Override
-    public void deleteProduct(Product product) {
-        ProductStorage.productStorageList.removeIf(tmp -> tmp.getId().equals(product.getId()));
+    public Product updateProduct(Product product) {
+        Product oldProduct = productRepository.findById(product.getId()).orElseGet(Product::new);
+        return productRepository.save(ProductConverter.productConverter(product, oldProduct));
     }
 
     @Override
-    public Product getById(int id) {
-        Product product = new Product();
-        for (Product tmp : ProductStorage.productStorageList) {
-            if (tmp.getId().equals(id)) {
-                product = tmp;
-            }
-        }
-        return product;
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    public Product getById(Long id) {
+        return productRepository.findById(id).get();
     }
 
     @Override
     public List<Product> getAll() {
-        return ProductStorage.productStorageList;
+        return (List<Product>) productRepository.findAll();
     }
 }

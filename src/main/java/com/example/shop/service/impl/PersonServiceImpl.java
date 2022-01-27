@@ -1,51 +1,62 @@
 package com.example.shop.service.impl;
 
+import com.example.shop.converter.PersonConverter;
 import com.example.shop.model.Person;
+import com.example.shop.model.Shop;
+import com.example.shop.repository.PersonRepository;
+import com.example.shop.repository.ShopRepository;
 import com.example.shop.service.PersonService;
-import com.example.shop.storage.PersonStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
+
     @Override
     public Person createPerson(Person person) {
-        PersonStorage.personStorageList.add(person);
-        return person;
+        return personRepository.save(person);
     }
 
     @Override
     public Person updatePerson(Person person) {
-        Person updatePerson = new Person();
-        for (Person tmp : PersonStorage.personStorageList)
-            if (tmp.getId().equals(person.getId())) {
-                tmp.setCartList(person.getCartList());
-                tmp.setName(person.getName());
-                updatePerson = tmp;
-            }
-        return updatePerson;
+        Person oldPerson = personRepository.findById(person.getId()).orElseGet(Person::new);
+        return personRepository.save(PersonConverter.personConverter(person, oldPerson));
     }
 
     @Override
-    public void deletePerson(Person person) {
-        PersonStorage.personStorageList.removeIf(tmp -> tmp.getId().equals(person.getId()));
+    public Person getPersonById(Long id) {
+        Optional<Person> person = personRepository.findById(id);
+        return person.orElseGet(Person::new);
     }
 
     @Override
-    public Person getPersonById(int id) {
-        Person person = new Person();
-        for (Person tmp : PersonStorage.personStorageList) {
-            if (tmp.getId() == id) {
-                person = tmp;
-            }
-        }
-        return person;
+    public void deletePerson(Long id) {
+        personRepository.deleteById(id);
     }
 
     @Override
     public List<Person> getAllPerson() {
-        return PersonStorage.personStorageList;
+        return (List<Person>) personRepository.findAll();
+    }
+
+    @Override
+    public Person addShop(Long id, Long shopId) {
+        Person person = personRepository.findById(id).get();
+        Shop shop = shopRepository.findById(shopId).get();
+        List<Person> personList = shop.getPersonList();
+        personList.add(person);
+        shop.setPersonList(personList);
+        person.setShop(shop);
+        shopRepository.save(shop);
+        return personRepository.save(person);
     }
 }
 

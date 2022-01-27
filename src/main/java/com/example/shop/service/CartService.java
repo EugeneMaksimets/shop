@@ -6,20 +6,17 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartService {
-    Cart createCart(Cart cart);
 
-    Cart updateCart(Cart cart);
+    Cart createCart(Long personId);
 
-    void deleteCart(Cart cart);
-
-    Cart getById(int id);
+    Cart getById(Long id);
 
     List<Cart> getAll();
 
-    Cart addProductToCart(int id, int idProduct);
+    Cart addProductToCart(Long id, Long idProduct);
 
-    Cart deleteProductFromCart(int id, int idProduct);
+    Cart deleteProductFromCart(Long id, Long idProduct);
 
-    BigDecimal getFullPrice(int id);
+    BigDecimal getFullPrice(Long id);
 }
 

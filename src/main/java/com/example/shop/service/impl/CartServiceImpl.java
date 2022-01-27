@@ -3,118 +3,87 @@ package com.example.shop.service.impl;
 import com.example.shop.model.Cart;
 import com.example.shop.model.Person;
 import com.example.shop.model.Product;
+import com.example.shop.repository.CartRepository;
+import com.example.shop.repository.PersonRepository;
+import com.example.shop.repository.ProductRepository;
+import com.example.shop.repository.ShopRepository;
 import com.example.shop.service.CartService;
-import com.example.shop.storage.CartStorage;
-import com.example.shop.storage.PersonStorage;
-import com.example.shop.storage.ProductStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-    private List<Product> productList = new ArrayList<>();
-    private List<Cart> cartList = new ArrayList<>();
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     @Override
-    public Cart createCart(Cart cart) {
+    public Cart createCart(Long personId) {
+        Cart cart = new Cart();
+        Person person = personRepository.findById(personId).get();
         cart.setPriceInCart(BigDecimal.ZERO);
-        CartStorage.cartStorageList.add(cart);
+        Cart newCart = cartRepository.save(cart);
+        List<Cart> cartList = person.getCarts();
         cartList.add(cart);
-        for (Person tmp : PersonStorage.personStorageList) {
-            if (tmp.getId().equals(cart.getPersonId())) {
-                tmp.setCartList(cartList);
-            }
-        }
-        return cart;
-    }
-
-    @Override
-    public Cart updateCart(Cart cart) {
-        Cart newCart = new Cart();
-        for (Cart tmp : CartStorage.cartStorageList) {
-            if (tmp.getId().equals(cart.getId())) {
-                tmp.setPriceInCart(cart.getPriceInCart());
-                tmp.setPersonId(cart.getPersonId());
-                newCart = tmp;
-            }
-        }
+        person.setCarts(cartList);
+        personRepository.save(person);
         return newCart;
     }
 
     @Override
-    public void deleteCart(Cart cart) {
-        CartStorage.cartStorageList.removeIf(tmp -> tmp.getId().equals(cart.getId()));
-    }
-
-    @Override
-    public Cart getById(int id) {
-        Cart cart = new Cart();
-        for (Cart tmp : CartStorage.cartStorageList) {
-            if (tmp.getId() == id) {
-                cart = tmp;
-            }
-        }
-        return cart;
+    public Cart getById(Long id) {
+        return cartRepository.findById(id).get();
     }
 
     @Override
     public List<Cart> getAll() {
-        return CartStorage.cartStorageList;
+        return (List<Cart>) cartRepository.findAll();
     }
 
     @Override
-    public Cart addProductToCart(int id, int idProduct) {
-        Cart cart = new Cart();
-        for (Cart tmp : CartStorage.cartStorageList) {
-            if (id == tmp.getId()) {
-                for (Product tmpProduct : ProductStorage.productStorageList) {
-                    if (idProduct == tmpProduct.getId()) {
-                        BigDecimal sum = getFullPrice(tmp.getId());
-                        sum = sum.add(tmpProduct.getPrice());
-                        tmp.setPriceInCart(sum);
-                        productList.add(tmpProduct);
-                        tmp.setProductList(productList);
-                        cart = tmp;
-                    }
-                }
+    public Cart addProductToCart(Long id, Long idProduct) {
+        Product product = productRepository.findById(idProduct).get();
+        Cart cart = cartRepository.findById(id).get();
+        List<Product> productList = cart.getProductList();
+        productList.add(product);
+        cart.setProductList(productList);
+        BigDecimal sum = cart.getPriceInCart().add(product.getPrice());
+        cart.setPriceInCart(sum);
+        cartRepository.save(cart);
+        return cart;
+    }
+
+    @Override
+    public Cart deleteProductFromCart(Long id, Long idProduct) {
+        Cart cart = cartRepository.findById(id).get();
+        for (Product tmp : cart.getProductList()) {
+            if (tmp.getId().equals(idProduct)) {
+                List<Product> productList = cart.getProductList();
+                productList.removeIf(tmpProduct -> tmpProduct.getId().equals(idProduct));
+                cart.setProductList(productList);
+                BigDecimal sum = cart.getPriceInCart().subtract(tmp.getPrice());
+                cart.setPriceInCart(sum);
+                cartRepository.save(cart);
             }
         }
         return cart;
     }
 
     @Override
-    public Cart deleteProductFromCart(int id, int idProduct) {
-        Cart cart = new Cart();
-        for (Cart tmp : CartStorage.cartStorageList) {
-            if (id == tmp.getId()) {
-                for (Product tmpProduct : ProductStorage.productStorageList) {
-                    if (idProduct == tmpProduct.getId()) {
-                        BigDecimal sum = getFullPrice(tmp.getId());
-                        sum = sum.subtract(tmpProduct.getPrice());
-                        tmp.setPriceInCart(sum);
-                        productList.remove(tmpProduct);
-                        tmp.setProductList(productList);
-                        cart = tmp;
-                    }
-                }
-            }
-        }
-        return cart;
-    }
-
-    @Override
-    public BigDecimal getFullPrice(int id) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Cart tmp : CartStorage.cartStorageList) {
-            if (tmp.getId() == id) {
-                sum = sum.add(tmp.getPriceInCart());
-                tmp.setPriceInCart(sum);
-            }
-        }
-        return sum;
+    public BigDecimal getFullPrice(Long id) {
+        Cart cart = cartRepository.findById(id).get();
+        return cart.getPriceInCart();
     }
 }
 

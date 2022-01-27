@@ -22,18 +22,23 @@ public class PersonController {
         return personService.updatePerson(person);
     }
 
-    @DeleteMapping("/person/delete")
-    public void deletePerson(@RequestBody Person person) {
-        personService.deletePerson(person);
+    @DeleteMapping("/person/delete/{id}")
+    public void deletePerson(@PathVariable Long id) {
+        personService.deletePerson(id);
     }
 
     @GetMapping("/person/{id}")
-    public Person getPersonById(@PathVariable int id) {
+    public Person getPersonById(@PathVariable Long id) {
         return personService.getPersonById(id);
     }
 
     @GetMapping("/person/all")
     public List<Person> getAll() {
         return personService.getAllPerson();
+    }
+
+    @PutMapping("person/{id}/add/shop/{shopId}")
+    public Person addShop(@PathVariable Long id, @PathVariable Long shopId) {
+        return personService.addShop(id, shopId);
     }
 }
