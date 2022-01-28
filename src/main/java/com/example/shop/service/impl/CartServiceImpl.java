@@ -3,6 +3,7 @@ package com.example.shop.service.impl;
 import com.example.shop.model.Cart;
 import com.example.shop.model.Person;
 import com.example.shop.model.Product;
+import com.example.shop.model.Shop;
 import com.example.shop.repository.CartRepository;
 import com.example.shop.repository.PersonRepository;
 import com.example.shop.repository.ProductRepository;
@@ -52,14 +53,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart addProductToCart(Long id, Long idProduct) {
-        Product product = productRepository.findById(idProduct).get();
+    public Cart addProductToCart(Long shopId, Long id, Long idProduct) {
         Cart cart = cartRepository.findById(id).get();
-        List<Product> productList = cart.getProductList();
-        productList.add(product);
-        cart.setProductList(productList);
-        BigDecimal sum = cart.getPriceInCart().add(product.getPrice());
-        cart.setPriceInCart(sum);
+        Shop shop = shopRepository.findById(shopId).get();
+        for (Product tmp : shop.getProductList()) {
+            if (tmp.getId().equals(idProduct)) {
+                List<Product> productList = cart.getProductList();
+                productList.add(tmp);
+                cart.setProductList(productList);
+                BigDecimal sum = cart.getPriceInCart().add(tmp.getPrice());
+                cart.setPriceInCart(sum);
+                break;
+            } else {
+                System.err.println("This product from another shop");
+            }
+        }
         cartRepository.save(cart);
         return cart;
     }
@@ -70,11 +78,12 @@ public class CartServiceImpl implements CartService {
         for (Product tmp : cart.getProductList()) {
             if (tmp.getId().equals(idProduct)) {
                 List<Product> productList = cart.getProductList();
-                productList.removeIf(tmpProduct -> tmpProduct.getId().equals(idProduct));
+                productList.remove(tmp);
                 cart.setProductList(productList);
                 BigDecimal sum = cart.getPriceInCart().subtract(tmp.getPrice());
                 cart.setPriceInCart(sum);
                 cartRepository.save(cart);
+                break;
             }
         }
         return cart;

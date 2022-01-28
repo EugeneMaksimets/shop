@@ -6,13 +6,183 @@
 	},
 	"item": [
 		{
+			"name": "shop create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\": \"testShop\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shop create Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\": \"testShop2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shop create Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\": \"testShop3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shop update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"id\": 3,\n \"name\": \"testShop4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shop get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteShop",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/delete/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllShop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "createPerson",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 1,\n  \"name\": \"test\",\n  \"cartId\": 1\n}",
+					"raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"Test lastName\",\n  \"age\": 22,\n  \"phone\": \"0986717294\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -34,13 +204,35 @@
 			"response": []
 		},
 		{
+			"name": "Person add shop",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/person/1/add/shop/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"1",
+						"add",
+						"shop",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "createPerson 2",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"name\": \"test2\",\n  \"cartId\": 2\n}",
+					"raw": "{\n  \"firstName\": \"Test2\",\n  \"lastName\": \"Test2 lastName\",\n  \"age\": 25,\n  \"phone\": \"096777777\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,6 +248,132 @@
 					"path": [
 						"person",
 						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Person2 add shop2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/person/2/add/shop/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"2",
+						"add",
+						"shop",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPerson 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Test3\",\n  \"lastName\": \"Test3 lastName\",\n  \"age\": 90,\n  \"phone\": \"00000000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/person/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePerson",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n  \"firstName\": \"Test3\",\n  \"lastName\": \"Test3 lastName\",\n  \"age\": 18,\n  \"phone\": \"0000000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/person/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByIdPerson",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/person/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletePerson",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/person/delete/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"delete",
+						"3"
 					]
 				}
 			},
@@ -81,120 +399,40 @@
 			"response": []
 		},
 		{
-			"name": "updatePerson",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"name\": \"test3\",\n  \"cartId\": \"1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/person/update",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"person",
-						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "findByIdPerson",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "deletePerson",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n        \"id\": 2\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/person/delete",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"person",
-						"delete"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "addCart",
+			"name": "create Cart",
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 1,\n  \"personId\": 1\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:8080/cart/create",
+					"raw": "localhost:8080/cart/create/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"cart",
-						"create"
+						"create",
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "addCart 2",
+			"name": "create Cart 2",
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"personId\": 2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:8080/cart/create",
+					"raw": "localhost:8080/cart/create/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"cart",
-						"create"
+						"create",
+						"2"
 					]
 				}
 			},
@@ -220,50 +458,10 @@
 			"response": []
 		},
 		{
-			"name": "updateCart1",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"priceInCard\": 100,\n  \"personId\": 3\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/cart/update",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"cart",
-						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllCart",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "localhost:8080/cart/all",
 					"host": [
@@ -279,41 +477,13 @@
 			"response": []
 		},
 		{
-			"name": "deleteCart",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/cart/delete",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"cart",
-						"delete"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "createProduct",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 1,\n \"name\": \"test\",\n  \"price\": 20\n}",
+					"raw": "{\n \"name\": \"test\",\n \"price\": 20\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -321,12 +491,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/product/create",
+					"raw": "localhost:8080/shop/1/product/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"shop",
+						"1",
 						"product",
 						"create"
 					]
@@ -341,7 +513,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n \"name\": \"test2\",\n  \"price\": 200\n}",
+					"raw": "{\n \"name\": \"test2\",\n \"price\": 200\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -349,12 +521,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/product/create",
+					"raw": "localhost:8080/shop/2/product/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"shop",
+						"2",
 						"product",
 						"create"
 					]
@@ -369,7 +543,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 3,\n \"name\": \"test3\",\n  \"price\": 2000\n}",
+					"raw": "{\n \"name\": \"test3\",\n  \"price\": 2000\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -377,12 +551,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/product/create",
+					"raw": "localhost:8080/shop/2/product/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"shop",
+						"2",
 						"product",
 						"create"
 					]
@@ -391,53 +567,10 @@
 			"response": []
 		},
 		{
-			"name": "getAllProduct",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/product/all",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"product",
-						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getByIdProduct",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "localhost:8080/product/1",
 					"host": [
@@ -485,24 +618,35 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:8080/product/delete",
+					"raw": "localhost:8080/product/delete/3",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"product",
-						"delete"
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"all"
 					]
 				}
 			},
@@ -513,22 +657,61 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:8080/cart/1/add/2",
+					"raw": "localhost:8080/shop/1/cart/1/add/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"shop",
+						"1",
+						"cart",
+						"1",
+						"add",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Product to Cart Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/1/cart/1/add/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"1",
+						"cart",
+						"1",
+						"add",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Product from anoterShop, ERROR",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/1/cart/1/add/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"1",
 						"cart",
 						"1",
 						"add",
@@ -543,26 +726,19 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:8080/cart/1/add/1",
+					"raw": "localhost:8080/shop/2/cart/2/add/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"shop",
+						"2",
 						"cart",
-						"1",
+						"2",
 						"add",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -570,21 +746,9 @@
 		},
 		{
 			"name": "getPrice in Cart",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "localhost:8080/cart/price/1",
 					"host": [
@@ -601,21 +765,19 @@
 			"response": []
 		},
 		{
-			"name": "delet product in Cart",
+			"name": "delete ONE product in Cart",
 			"request": {
 				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
-				},
+				],
 				"url": {
-					"raw": "localhost:8080/cart/1/delete/2",
+					"raw": "localhost:8080/cart/1/delete/1",
 					"host": [
 						"localhost"
 					],
@@ -624,7 +786,14 @@
 						"cart",
 						"1",
 						"delete",
-						"2"
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},

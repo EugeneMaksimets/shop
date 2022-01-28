@@ -1,6 +1,5 @@
 package com.example.shop.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,10 +35,8 @@ public class Shop {
     @Column(name = "persons")
     private List<Person> personList;
 
-//    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "products")
     private List<Product> productList;
-
 
 }

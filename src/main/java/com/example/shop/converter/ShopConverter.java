@@ -6,6 +6,7 @@ public class ShopConverter {
     public static Shop shopConverter(Shop shop, Shop oldShop) {
         oldShop.setName(shop.getName());
         oldShop.setPersonList(shop.getPersonList());
+        oldShop.setProductList(shop.getProductList());
         return oldShop;
     }
 }

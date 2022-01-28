@@ -33,9 +33,9 @@ public class CartController {
         return cartService.getAll();
     }
 
-    @PutMapping("cart/{id}/add/{idProduct}")
-    public Cart addProduct(@PathVariable Long id, @PathVariable Long idProduct) {
-        return cartService.addProductToCart(id, idProduct);
+    @PutMapping("shop/{shopId}/cart/{id}/add/{idProduct}")
+    public Cart addProduct(@PathVariable Long shopId, @PathVariable Long id, @PathVariable Long idProduct) {
+        return cartService.addProductToCart(shopId, id, idProduct);
     }
 
     @DeleteMapping("cart/{id}/delete/{idProduct}")

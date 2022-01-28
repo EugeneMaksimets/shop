@@ -13,10 +13,11 @@ public interface CartService {
 
     List<Cart> getAll();
 
-    Cart addProductToCart(Long id, Long idProduct);
+    Cart addProductToCart(Long shopId, Long id, Long idProduct);
 
     Cart deleteProductFromCart(Long id, Long idProduct);
 
     BigDecimal getFullPrice(Long id);
+
 }
 
