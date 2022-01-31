@@ -63,9 +63,9 @@ public class CartServiceImpl implements CartService {
                 cart.setProductList(productList);
                 BigDecimal sum = cart.getPriceInCart().add(tmp.getPrice());
                 cart.setPriceInCart(sum);
-                break;
             } else {
                 System.err.println("This product from another shop");
+                break;
             }
         }
         cartRepository.save(cart);
